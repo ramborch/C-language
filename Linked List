@@ -62,11 +62,8 @@ struct Node* Delete(struct Node* head,int n)
         temp->next=temp1->next;
         free(temp1);
         return head;
-    }
-    
-    
+    }    
 }
-
 struct Node* Insert_at_beg(struct Node* head,int n)
 {
     struct Node* temp;
@@ -81,7 +78,6 @@ struct Node* Insert_at_beg(struct Node* head,int n)
     }
     return head;
 }
-
 struct Node* Insert_at_Pos(struct Node* head, int pos, int n)
 {
     struct Node* temp, *temp1;
@@ -108,10 +104,31 @@ struct Node* Insert_at_Pos(struct Node* head, int pos, int n)
     }
     return head;
 }
-
-
-
-
+struct Node* Reverse(struct Node* head)
+{
+    struct Node* current,*prev,*link;
+    current=head;
+    prev=NULL;
+    while (current!=NULL)
+    {
+        link=current->next;
+        current->next=prev;
+        prev=current;
+        current=link;
+    }
+    head=prev;
+    return head;
+}
+void ReverseRec(struct Node* head)
+{
+    if (head==NULL)
+    {
+        printf("\n");
+        return;
+    }
+    ReverseRec(head->next);
+    printf("%d",head->data);
+}
 int main()
 {
     struct Node* A;
@@ -125,6 +142,11 @@ int main()
     A=Insert_at_Pos(A,3,55);
     Display(A);
     A=Delete(A,2);
+    printf("\n");
+    Display(A);
+    A=Reverse(A);
+    printf("\n");
+    Display(A);
     printf("\n");
     Display(A);
     return 0;
