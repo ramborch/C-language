@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node* next;
+};
+
+struct Node* Insert_at_end(struct Node* head,int n)
+{
+    struct Node* temp,*temp1;
+    temp=head;
+    if (head==NULL)
+    {
+       temp=malloc(sizeof(struct Node));
+       temp->data=n;
+       temp->next=NULL;
+       head=temp;
+    }
+    else
+    {
+        //temp=head;
+        while(temp->next!=NULL)
+        {
+                temp=temp->next;
+        }
+        temp1=malloc(sizeof(struct Node));
+        temp1->data=n;
+        temp1->next=NULL;
+        temp->next=temp1;
+    }
+    return head;
+}
+void Display(struct Node* head)
+{
+    while(head!=NULL)
+    {
+        printf("%d ",head->data);
+        head=head->next;
+    }
+    //return head;
+}
+struct Node* Delete(struct Node* head,int n)
+{
+    struct Node* temp;
+    temp=head;
+    if(n==1)
+    {
+        head=temp->next;
+        free(temp);
+        return head;
+    }
+    else
+    {
+        for (int i=1;i<n-1;i++)
+        {
+            temp=temp->next;   
+        }
+        struct Node* temp1;
+        temp1=temp->next;
+        temp->next=temp1->next;
+        free(temp1);
+    }
+    return head;
+    
+}
+
+struct Node* Insert_at_beg(struct Node* head,int n)
+{
+    struct Node* temp;
+    temp=head;
+    temp=malloc(sizeof(struct Node));
+    temp->data=n;
+    temp->next=NULL;
+    if (head!=NULL)
+    {
+        temp->next=head;
+        head=temp;
+    }
+    return head;
+}
+
+struct Node* Insert_at_Pos(struct Node* head, int pos, int n)
+{
+    struct Node* temp, *temp1;
+    temp=head;
+    temp1=head;
+    temp=malloc(sizeof(struct Node));
+    temp->data=n;
+    temp->next=NULL;
+    if (pos==1)
+    {
+        temp->next=head;
+        head=temp;
+    }
+    //return head;
+    else
+    {
+        //temp1=malloc(sizeof(struct Node));
+        for (int i=1;i<pos-1;i++)
+        {
+            temp1=temp1->next;
+        }
+        temp->next=temp1->next;
+        temp1->next=temp;
+    }
+    return head;
+}
+
+
+
+
+int main()
+{
+    struct Node* A;
+    A=NULL;
+    A=Insert_at_end(A,3);
+    A=Insert_at_end(A,12);
+    A=Insert_at_end(A,40);
+    A=Insert_at_end(A,30);
+    A=Insert_at_beg(A,10);
+    A=Insert_at_Pos(A,1,45);
+    A=Insert_at_Pos(A,3,55);
+    Display(A);
+    Delete(A,1);
+    return 0;
+}
